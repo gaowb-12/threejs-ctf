@@ -5,20 +5,20 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import axios from "axios";
-import { PlaygroundCTF, CTFAssetsLoader, TargetCTF, TeamCTF, random } from '../index'
+import { PlaygroundCTF, CTFAssetsLoader, TargetCTF, TeamCTF, random } from './index'
 
 @Component
 export default class HomeView extends Vue {
     mounted() {
         this.init();
-    };
+    }
     async init() {
       // 加载场景所需资源
       const assets = await CTFAssetsLoader.load()
       // 加载 队伍 和 靶标 数据
       const [targetData, teamData] = await Promise.all([
-        axios.get('./json/targets.json'),
-        axios.get('./json/teams.json')
+        axios.get('/json/targets.json'),
+        axios.get('/json/teams.json')
       ])
       // 初始化场景
       const playgroundCTF = new PlaygroundCTF((document.querySelector('#ctf') as HTMLElement), assets)
@@ -33,7 +33,7 @@ export default class HomeView extends Vue {
       const teams = teamData.data.map((item:any) => {
         // 队伍 3D 模型
         const teamModel = assets.aerobat
-        return new TeamCTF(teamModel, item.name)
+        return new TeamCTF(teamModel as any, item.name)
       })
       // 向场景添加队伍和靶标
       playgroundCTF.setTeams(teams)

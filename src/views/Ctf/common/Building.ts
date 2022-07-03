@@ -31,9 +31,9 @@ export class Building extends BaseObject {
   line: LineSegments
   box: Mesh
   _size: number
-  _status: Status
+  _status!: Status
 
-  constructor(geometry: BufferGeometry | Geometry, size: number = 200) {
+  constructor(geometry: BufferGeometry | Geometry, size = 200) {
     super()
     // 模型
     this._size = size
@@ -110,11 +110,11 @@ export class Building extends BaseObject {
     return this._status
   }
 
-  private setMaterial(mtlstr: string) {
+  private setMaterial(mtlstr: 'normal'|'red'|'blue') {
     this.mesh.material = materials[mtlstr].mesh
     this.line.material = materials[mtlstr].line
     this.box.material = materials[mtlstr].box
-    const boxBorderMtl = mtlstr === 'normal' ? materials.blue.line : materials[mtlstr].line
-    this.box.children[0]['material'] = boxBorderMtl
+    const boxBorderMtl = mtlstr === 'normal' ? materials.blue.line : materials[mtlstr].line;
+    (this.box.children[0] as Mesh)['material'] = boxBorderMtl
   }
 }

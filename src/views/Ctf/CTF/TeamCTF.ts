@@ -23,11 +23,11 @@ let meshMaterial: MeshStandardMaterial
 
 export class TeamCTF extends BaseObject {
   name: string
-  target: TargetCTF | null  // 当前攻击目标
-  success: boolean = false
+  target!: TargetCTF | null  // 当前攻击目标
+  success = false
 
   panel: TeamCTFPanel
-  box: LineSegments
+  box!: LineSegments
   mesh: Mesh
   // 一个虚拟的点，用于标识特写摄像机位置
   cpos = new Object3D()
@@ -80,7 +80,7 @@ export class TeamCTF extends BaseObject {
   private startAttack() {
     const playground = this.playground as PlaygroundCTF
     playground.focus(this)
-    this.lookAt(this.target.position)
+    this.lookAt((this.target as TargetCTF).position)
     const toRotate = { x: this.rotation.x, y: this.rotation.y, z: this.rotation.z }
     this.rotation.set(0, 0, 0)
     new Tween(this.position)
@@ -99,11 +99,11 @@ export class TeamCTF extends BaseObject {
       interval: 150,
       times: 10,
       onStart: () => {
-        setTimeout(() => { target.beAttack(this, success) }, 900)
+        setTimeout(() => { (target as TargetCTF).beAttack(this, success) }, 900)
       },
       callback: () => {
-        this.lookAt(target.position)
-        Bullet.shoot(playground, this, target)
+        this.lookAt((target as TargetCTF).position)
+        Bullet.shoot(playground, this, (target as TargetCTF))
       },
       onEnd: () => {
         setTimeout(this.endAttack.bind(this), 1100)

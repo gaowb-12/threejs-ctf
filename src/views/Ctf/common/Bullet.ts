@@ -16,13 +16,13 @@ export class Bullet extends Mesh {
     Bullet.pool.push(this)
   }
 
-  static shoot(playground: Playground, from: Object3D, to: Object3D, isCurve: boolean = false) {
+  static shoot(playground: Playground, from: Object3D, to: Object3D, isCurve = false) {
     const bullet = Bullet.pool.find(b => !b.used) || new Bullet()
     bullet.used = true
     const sp = from.position.clone()
     const ep = to.position.clone()
-    sp.applyMatrix4(from.parent.matrixWorld)
-    ep.applyMatrix4(to.parent.matrixWorld)
+    sp.applyMatrix4((from.parent as Object3D).matrixWorld)
+    ep.applyMatrix4((to.parent as Object3D).matrixWorld)
     bullet.position.set(sp.x, sp.y, sp.z)
     playground.add(bullet)
     

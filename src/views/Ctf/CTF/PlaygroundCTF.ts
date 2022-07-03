@@ -1,4 +1,4 @@
-import { AdditiveBlending, BoxBufferGeometry, DirectionalLight, DoubleSide, EdgesGeometry, Group, LineBasicMaterial, LineSegments, Matrix4, Mesh, MeshBasicMaterial, MeshLambertMaterial, PerspectiveCamera, PlaneBufferGeometry, PointLight, TextureLoader, Vector3 } from 'three'
+import { AdditiveBlending, CubeTexture, BoxBufferGeometry, DirectionalLight, DoubleSide, EdgesGeometry, Group, LineBasicMaterial, LineSegments, Matrix4, Mesh, MeshBasicMaterial, MeshLambertMaterial, PerspectiveCamera, PlaneBufferGeometry, PointLight, TextureLoader, Vector3 } from 'three'
 import { CTFAssets } from './CTFAssets'
 import { Playground } from '../common/Playground'
 import { Terrain } from '../common/Terrain'
@@ -27,7 +27,7 @@ export class PlaygroundCTF extends Playground {
   // 当前是否为特写状态
   isFocus = false
   // 当前特写的队伍
-  focusTeam: TeamCTF
+  focusTeam!: TeamCTF | null
   // 地图网格
   mapGrid = new MapGrid()
   gridSize = 240
@@ -54,11 +54,11 @@ export class PlaygroundCTF extends Playground {
     // this.add(new PointLightHelper(plight1, 30), new PointLightHelper(plight2, 30))
 
     // 天空盒
-    this.background = assets.cubeTexture
+    this.background = assets.cubeTexture as CubeTexture;
 
     // 地形
     const material = new LineBasicMaterial({ color: 0x006bff, blending: AdditiveBlending })
-    const terrainGeometry = new Terrain(assets.heightimg)
+    const terrainGeometry = new Terrain(assets.heightimg as HTMLImageElement)
     // const simplifyGeometry = new SimplifyModifier().modify(terrainGeometry, 1000)
     const edges = new EdgesGeometry(terrainGeometry, 1)
     const terrain = new LineSegments(edges, material)

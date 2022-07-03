@@ -10,7 +10,7 @@ export class Terrain extends PlaneBufferGeometry {
     const canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     ctx.drawImage(heightImg, 0, 0)
     const pixels = ctx.getImageData(0, 0, width, height).data
 

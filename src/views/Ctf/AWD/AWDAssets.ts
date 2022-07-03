@@ -4,7 +4,7 @@ import { AssetsLoadingManager } from '../common/LoadingManagers'
 import { imgsDir, modelsDir } from '../consts'
 
 export interface AWDAssets {
-  buildings?: Array<BufferGeometry | Geometry>,
+  buildings: Array<BufferGeometry | Geometry>,
   // heightimg?: HTMLImageElement,
   cubeTexture?: CubeTexture
   plane1?: Mesh,

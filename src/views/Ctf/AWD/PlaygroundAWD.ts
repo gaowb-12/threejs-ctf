@@ -1,4 +1,4 @@
-import { AdditiveBlending, DoubleSide, EdgesGeometry, LineBasicMaterial, LineSegments, Matrix4, Mesh, MeshStandardMaterial, PerspectiveCamera, PlaneBufferGeometry, PointLight, TextureLoader, WebGLRenderer } from 'three'
+import { AdditiveBlending, CubeTexture, DoubleSide, EdgesGeometry, LineBasicMaterial, LineSegments, Matrix4, Mesh, MeshStandardMaterial, PerspectiveCamera, PlaneBufferGeometry, PointLight, TextureLoader, WebGLRenderer } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { Panel } from '../common/Panel'
@@ -28,7 +28,7 @@ export class PlaygroundAWD extends Playground {
     // this.fog = null
     this.assets = assets
 
-    this.background = assets.cubeTexture
+    this.background = assets.cubeTexture as CubeTexture;
 
     this.ambientLight.intensity - 0.5
 
@@ -128,11 +128,11 @@ export class PlaygroundAWD extends Playground {
     renderDom.classList.add('awd-sm-renderer')
     this.el.appendChild(renderDom)
 
-    const tank1 = new Tank(assets.zhancheObj)
+    const tank1 = new Tank(assets.zhancheObj as Mesh)
     tank1.position.set(-900, 0, -150)
-    const tank2 = new Tank(assets.zhancheObj)
+    const tank2 = new Tank(assets.zhancheObj as Mesh)
     tank2.position.set(-900, 0, 0)
-    const tank3 = new Tank(assets.zhancheObj)
+    const tank3 = new Tank(assets.zhancheObj as Mesh)
     tank3.position.set(-900, 0, 150)
     this.add(tank1, tank2, tank3)
     this.tanks = [tank1, tank2, tank3]

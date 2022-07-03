@@ -16,15 +16,15 @@ export class TargetCTFPanel extends Panel {
 
     this.listEl = h('div') as HTMLDivElement
     this.listEl.className = 'panel-target-list'
-    this.content.appendChild(this.titleEl)
-    this.content.appendChild(this.listEl)
+    this.content.appendChild(this.titleEl);
+    this.content.appendChild(this.listEl);
     
-    this.el.addEventListener('mouseenter', e => {
-      target.box.visible = true
-    })
-    this.el.addEventListener('mouseleave', e => {
+    (this.el as HTMLDivElement).addEventListener('mouseenter', e => {
+      target.box.visible = true;
+    });
+    (this.el as HTMLDivElement).addEventListener('mouseleave', e => {
       target.box.visible = false
-    })
+    });
   }
   addItem(name: string) {
     const count = this.listEl.childElementCount
@@ -49,7 +49,7 @@ export class TargetCTFPanel extends Panel {
   update() {
     super.update()
     if (this._type !== 1) {
-      this.el.style.visibility = 'visible'
+      (this.el as HTMLDivElement).style.visibility = 'visible'
     }
   }
 }

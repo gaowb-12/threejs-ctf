@@ -27,7 +27,7 @@ export class Area extends Mesh{
     g.faces.splice(4, 2)
     g.faces.splice(4, 2)
     g.applyMatrix4(new Matrix4().makeTranslation(width / 2, GRID_SIZE / 4 + 1, height / 2))
-    const color = colors[c] || colors[1]
+    const color = colors[c as 1,2,3,4,5,6] || colors[1]
     const m = new MeshBasicMaterial({
       color,
       transparent: true,

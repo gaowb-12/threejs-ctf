@@ -12,7 +12,7 @@ export class TargetAWDPanel extends Panel{
     </div>`
   }
   setScore(score: number, total: number) {
-    const bld = this.el.querySelector('.bld') as HTMLElement
+    const bld = (this.el as HTMLDivElement).querySelector('.bld') as HTMLElement
     bld.style.width = score / total * 100 + '%'
   }
 }

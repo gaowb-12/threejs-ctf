@@ -8,7 +8,7 @@ export class MapGrid extends Array<{ x: number, y: number, value: number, used: 
     const canvas = document.createElement('canvas')
     canvas.width = size
     canvas.height = size
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     const radius = size / 2
     const grd = ctx.createRadialGradient(radius, radius, 0, radius, radius, radius)
     grd.addColorStop(0, '#fff')

@@ -13,7 +13,7 @@ export class Panel {
   static camera: PerspectiveCamera
 
   public obj: BaseObject
-  public el: HTMLDivElement
+  public el: HTMLDivElement |null
   private _visible = false
   public offset: PanelOffset
   public content: HTMLDivElement
@@ -49,7 +49,7 @@ export class Panel {
     this.obj.getWorldPosition(p)
     const distance = Panel.camera.position.distanceTo(p)
 
-    p.y += (this.offset.y * this.obj.scale.y)
+    p.y += ((this.offset as any).y * this.obj.scale.y)
     const v = p.project(Panel.camera)
 
     v.x = (v.x + 1) / 2 * window.innerWidth
@@ -57,13 +57,13 @@ export class Panel {
     
     let style = `transform: translate3d(${v.x}px, ${v.y}px, 0);`
     if (distance > this.distance || distance <= 0) style += `visibility: hidden;`
-    else style += `visibility: visible;`
+    else style += `visibility: visible;`;
 
-    this.el.setAttribute('style', style)
+    (this.el as HTMLDivElement).setAttribute('style', style)
   }
 
   public destroy() {
-    document.body.removeChild(this.el)
+    document.body.removeChild(this.el as HTMLDivElement);
     this.el = null
   }
 }
