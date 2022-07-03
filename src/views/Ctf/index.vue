@@ -8,7 +8,7 @@ import axios from "axios";
 import { PlaygroundCTF, CTFAssetsLoader, TargetCTF, TeamCTF, random } from './index'
 
 @Component
-export default class HomeView extends Vue {
+export default class CTF extends Vue {
     mounted() {
         this.init();
     }
@@ -26,7 +26,6 @@ export default class HomeView extends Vue {
       const targets = targetData.data.map((item:any) => {
         // 靶标 3D 模型，从资源文件的建筑物中随机取一个
         const buildingModel = assets.buildings[random(0, assets.buildings.length - 1)]
-
         return new TargetCTF(buildingModel, item.name, item.score)
       })
       // 初始化队伍

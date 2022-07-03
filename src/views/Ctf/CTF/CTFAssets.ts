@@ -31,6 +31,7 @@ export class CTFAssetsLoader {
       })
       const arr = ['5', '7', '5', '5', '8', '6']
       new CubeTextureLoader(AssetsLoadingManager).load(arr.map(n => `${imgsDir}/${n}.png`), cubeTexture => {
+        // 立方体贴图
         assets.cubeTexture = cubeTexture
         callback()
       })
