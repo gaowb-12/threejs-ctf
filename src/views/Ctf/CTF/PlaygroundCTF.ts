@@ -57,9 +57,12 @@ export class PlaygroundCTF extends Playground {
     this.background = assets.cubeTexture as CubeTexture;
 
     // 地形
+    // 几何体边缘材质（线条材质）
     const material = new LineBasicMaterial({ color: 0x006bff, blending: AdditiveBlending })
+    // 地形的几何体对象（通过PlaneBufferGeometry对象将几何体分成多个片段）
     const terrainGeometry = new Terrain(assets.heightimg as HTMLImageElement)
     // const simplifyGeometry = new SimplifyModifier().modify(terrainGeometry, 1000)
+    // 通过边缘几何体，把几何体对象的边缘展示出来
     const edges = new EdgesGeometry(terrainGeometry, 1)
     const terrain = new LineSegments(edges, material)
     terrain.position.set(0, -300, -300)
