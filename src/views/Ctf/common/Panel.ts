@@ -21,6 +21,7 @@ export class Panel {
 
   constructor(obj: BaseObject, offset?: PanelOffset, distance = 1200) {
     this.obj = obj
+    // 靶标提示标签
     this.el = h('div') as HTMLDivElement
     this.el.className = 'panel'
     this.content = h('div') as HTMLDivElement
@@ -44,14 +45,18 @@ export class Panel {
     Panel.instances.forEach(p => p.update())
   }
 
+  // 靶标标签的控制
   public update() {
     const p = this.obj.position.clone()
+    // 获取世界坐标
     this.obj.getWorldPosition(p)
+    // 距离相机的距离
     const distance = Panel.camera.position.distanceTo(p)
 
     p.y += ((this.offset as any).y * this.obj.scale.y)
     const v = p.project(Panel.camera)
 
+    // webgl坐标转换为屏幕坐标
     v.x = (v.x + 1) / 2 * window.innerWidth
     v.y = -(v.y - 1) / 2 * window.innerHeight
     

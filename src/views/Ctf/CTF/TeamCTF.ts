@@ -128,6 +128,7 @@ export class TeamCTF extends BaseObject {
       .start()
   }
 
+  // 开始攻击
   toAttack(target: TargetCTF, success = false) {
     if (success) this.winRecords.push(target.name)
     else this.winRecords = []

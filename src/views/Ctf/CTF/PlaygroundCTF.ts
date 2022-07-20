@@ -75,6 +75,7 @@ export class PlaygroundCTF extends Playground {
     const m = new MeshBasicMaterial({
       transparent: true,
       blending: AdditiveBlending,
+      // 扫描进度贴图
       map: new TextureLoader().load(`${imgsDir}/scan.png`),
       depthWrite: false
     })
@@ -88,6 +89,7 @@ export class PlaygroundCTF extends Playground {
       transparent: true,
       opacity: 0.6,
       blending: AdditiveBlending,
+      // 扫描背景贴图
       map: new TextureLoader().load(`${imgsDir}/btm-bg.png`),
       depthWrite: false
     })
@@ -105,6 +107,7 @@ export class PlaygroundCTF extends Playground {
     // 添加队伍组
     this.add(this.teamGroup)
     
+    // 执行雷达扫描动画
     this.animate()
   }
 
@@ -138,6 +141,7 @@ export class PlaygroundCTF extends Playground {
     targets.sort((a, b) => b.score - a.score).forEach(item => this.addTarget(item))
   }
 
+  // 添加靶标模型实例
   addTarget(target: TargetCTF) {
     const index = this.targets.length
     const grid = this.mapGrid[index]
@@ -151,6 +155,7 @@ export class PlaygroundCTF extends Playground {
     }
     this.add(target)
     const p = target.position
+    // 靶标位置添加动画
     new Tween(p)
       .delay((index + 1) * 50)
       .to({ x: p.x, y: -300, z: p.z }, 1000)
@@ -205,7 +210,9 @@ export class PlaygroundCTF extends Playground {
 
   animate() {
     super.animate()
+    // 扫描进度开始绕y轴旋转
     this.scan.rotation.y += 0.04
+    // 队伍绕y轴旋转
     this.teamGroup.rotation.y -= 0.006
     if (this.focusTeam) this.updateFocusCamera()
   }

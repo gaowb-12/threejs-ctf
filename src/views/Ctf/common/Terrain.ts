@@ -27,7 +27,7 @@ export class Terrain extends PlaneBufferGeometry {
     const array = this.attributes.position.array as Array<number>
     const len = width * height
     for (let i = 0; i < len; i++) {
-      // 将图片像素的r通道的值进行归一化之后，重新赋值给顶点数据，目的是将顶点数据更新，让地面处于随机凹凸状态
+      // 将图片像素的r通道的值进行归一化之后，重新赋值给顶点数据的Y坐标，目的是将顶点数据更新，让地面处于随机凹凸状态
       array[i * 3 + 1] = pixels[i * 4] / 256
     }
   }

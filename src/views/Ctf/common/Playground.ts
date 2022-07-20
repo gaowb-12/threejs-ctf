@@ -83,8 +83,11 @@ export class Playground extends Scene{
     if (!this.isPaused) requestAnimationFrame(this.animate.bind(this))
     this.stats.update()
     this.controls.update()
+    // 靶标动画
     TweenUpdate()
+    // 靶标提示标签动画
     Panel.update()
+    // 通过后期处理通道合成
     this.composer.render()
   }
 

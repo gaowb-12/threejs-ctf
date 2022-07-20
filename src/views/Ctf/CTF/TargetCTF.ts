@@ -15,6 +15,7 @@ export class TargetCTF extends Building{
   winTeams: TeamCTF[] = []
 
   constructor(geometry: BufferGeometry | Geometry, name: string, score: number) {
+    // 靶标建筑物模型
     super(geometry)
     this.name = name
     this.score = score

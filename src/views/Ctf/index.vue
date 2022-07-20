@@ -26,6 +26,7 @@ export default class CTF extends Vue {
       const targets = targetData.data.map((item:any) => {
         // 靶标 3D 模型，从资源文件的建筑物中随机取一个
         const buildingModel = assets.buildings[random(0, assets.buildings.length - 1)]
+        // 靶标模型实例
         return new TargetCTF(buildingModel, item.name, item.score)
       })
       // 初始化队伍
