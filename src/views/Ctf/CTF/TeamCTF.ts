@@ -22,7 +22,7 @@ let meshMaterial: MeshStandardMaterial
 
 
 export class TeamCTF extends BaseObject {
-  name: string
+  name: string //队伍名称
   target!: TargetCTF | null  // 当前攻击目标
   success = false
 
@@ -41,6 +41,7 @@ export class TeamCTF extends BaseObject {
     this.name = name
     this.panel = new TeamCTFPanel(this, { y: 55, x: -40 })
 
+    // 设置队伍（飞机模型）的材质
     const mtl = mesh.material as MeshStandardMaterial
     const normalMap = mtl.normalMap
     meshMaterial = meshMaterial || new MeshStandardMaterial({
@@ -51,32 +52,39 @@ export class TeamCTF extends BaseObject {
     const ms = mesh.clone()
     ms.material = meshMaterial
     this.mesh = ms
+    // 设置队伍的位置属性
     ms.scale.set(0.3, 0.3, 0.3)
     ms.rotation.y = -Math.PI
     ms.position.y = -5
 
+    // 设置立方缓冲几何体（模拟尾部动力装置，带颜色的部分）
     const g = new BoxGeometry(6, 24, 6)
     g.faces.splice(4, 2)
     g.faces.splice(4, 2)
+    // 尾部的材质
     const m = new MeshBasicMaterial({
       transparent: true,
       blending: AdditiveBlending,
       side: DoubleSide,
       depthWrite: false,
+      // 贴图
       map: new TextureLoader().load(`${imgsDir}/team-tail-${random(0, 7)}.png`)
     })
     const tail = new Mesh(g, m)
     tail.rotation.x = -Math.PI / 2
     tail.position.set(-20, -5, -55)
+    // 第二个尾部动力装置
     const tail2 = tail.clone()
     tail2.position.x = 20
 
     this.position.y = 400
+    // 设置一个位置，用于表示跟随当前队伍的特写相机的位置
     this.cpos.position.set(0, 20, -100)
 
     this.add(ms, tail, tail2, this.cpos)
   }
 
+  // 进行攻击
   private startAttack() {
     const playground = this.playground as PlaygroundCTF
     playground.focus(this)
@@ -130,11 +138,14 @@ export class TeamCTF extends BaseObject {
 
   // 开始攻击
   toAttack(target: TargetCTF, success = false) {
+    // 是否成功攻击目标，成功的添加进winRecords数组
     if (success) this.winRecords.push(target.name)
     else this.winRecords = []
 
     if (this.target) return
+    // 保存当前攻击的目标
     this.target = target
+    // 保存攻击的结果
     this.success = success
     if (this.playground.isPaused) {
       this.target.beAttack(this, success)

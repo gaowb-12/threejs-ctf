@@ -111,11 +111,13 @@ export class PlaygroundCTF extends Playground {
     this.animate()
   }
 
+  // 开始设置队伍
   setTeams(teams: TeamCTF[] = []) {
     this.clearTeams()
     teams.forEach(team => this.addTeam(team))
   }
 
+  // 添加队伍
   addTeam(team: TeamCTF) {
     const index = this.teams.length + 1
     const grid = this.mapGrid[index]
@@ -123,11 +125,12 @@ export class PlaygroundCTF extends Playground {
 
     const rotationY = -Math.atan2(y, x)
     team.rotation.y = team.initialRotationY = rotationY
+    // 设置每个队伍的位置
     team.position.set(x * this.gridSize + this.gridSize / 2, 300, y * this.gridSize + this.gridSize / 2)
     this.teamGroup.add(team)
     this.teams.push(team)
   }
-  
+  // 清空全部队伍
   clearTeams() {
     this.teams.forEach(t => {
       this.teamGroup.remove(t)
@@ -136,22 +139,30 @@ export class PlaygroundCTF extends Playground {
     this.teams = []
   }
 
+  // 开始设置靶标
   setTargets(targets: TargetCTF[] = []) {
     this.clearTargets()
+    // 添加靶标
     targets.sort((a, b) => b.score - a.score).forEach(item => this.addTarget(item))
   }
 
   // 添加靶标模型实例
   addTarget(target: TargetCTF) {
+    // 已经存在的靶标数量
     const index = this.targets.length
-    const grid = this.mapGrid[index]
-    const { x, y, value } = grid
+    
+    // 每个靶标对应一个网格位置
+    const grid = this.mapGrid[index];
+    const { x, y, value } = grid; // x，y的取值范围这里是-10到10
     if (index === 0) {
-      target.scale.set(2, 2, 2)
+      // 第一个靶标
+      target.scale.set(2, 2, 2);//第一个靶标设置缩放
       target.position.set(0, -800, 0)
     } else {
+      // 其余靶标
+      // y轴位置固定（高度固定），x、z坐标定位靶标的位置（这里将网格坐标放大了gridSize倍）
       target.position.set(x * this.gridSize + this.gridSize / 2, -800, y * this.gridSize + this.gridSize / 2)
-      target.scale.y = value / 100
+      target.scale.y = value / 100;//其余靶标根据百分比设置缩放
     }
     this.add(target)
     const p = target.position
@@ -170,6 +181,7 @@ export class PlaygroundCTF extends Playground {
     this.targets.push(target)
   }
 
+  // 清除所有靶标
   clearTargets() {
     this.targets.forEach(t => {
       this.remove(t)
@@ -178,18 +190,25 @@ export class PlaygroundCTF extends Playground {
     this.targets = []
   }
 
+  // 进行特写
   focus(team: TeamCTF) {
+    // 是否有正在特写的队伍或者不存在队伍
     if (this.isFocus || !team || this.focusTeam) return
+    // 特写当前队伍
     this.focusTeam = team
     Panel.camera = this.focusCamera
+    // 切换为特写相机
     this.composer.passes = [this.focusScenePass]
     this.isFocus = true
     this.controls.enabled = false
+    // 特写三秒，然后切换为第三人称相机
     setTimeout(this.unFocus.bind(this), 3000)
   }
 
+  // 不进行特写
   unFocus() {
     Panel.camera = this.camera
+    // 切换为第三人称相机
     this.composer.passes = [this.scenePass]
     this.focusTeam = null
     this.controls.enabled = true
@@ -199,12 +218,17 @@ export class PlaygroundCTF extends Playground {
     }, 3000)
   }
 
+  // 更新特写相机
   updateFocusCamera() {
     const { focusTeam, focusCamera } = this
+    // 如果特写队伍不存在或者特写队伍没有攻击目标，就不更新
     if (!focusTeam || !focusTeam.target) return
     const p = new Vector3()
+    // 获取特写相机的世界坐标保存到p中
     focusTeam.cpos.getWorldPosition(p)
+    // 设置特写相机到需要特写的坐标p上
     focusCamera.position.set(p.x, p.y + 100, p.z)
+    // 朝向特写队伍
     focusCamera.lookAt(focusTeam.target.position)
   }
 
@@ -214,6 +238,7 @@ export class PlaygroundCTF extends Playground {
     this.scan.rotation.y += 0.04
     // 队伍绕y轴旋转
     this.teamGroup.rotation.y -= 0.006
+    // 是否存在特写队伍，更新特写相机
     if (this.focusTeam) this.updateFocusCamera()
   }
 

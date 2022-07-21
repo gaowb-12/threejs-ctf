@@ -42,9 +42,13 @@ export default class CTF extends Vue {
       // 随机攻击
       function randomAttack() {
         if (!teams.length || !targets.length) return
+        // 随机选一个队伍
         const team = teams[random(0, teams.length - 1)]
+        // 随机选一个靶标
         const target = targets[random(0, targets.length - 1)]
+        // 随机表示是否攻击成功
         const isSuccess = Math.random() > 0.5
+        // 开始攻击
         team.toAttack(target, isSuccess)
         setTimeout(randomAttack, Math.random() * 10000)
       }
