@@ -50,6 +50,7 @@ export default class CTF extends Vue {
         const isSuccess = Math.random() > 0.5
         // 开始攻击
         team.toAttack(target, isSuccess)
+        // 一直进行模拟攻击
         setTimeout(randomAttack, Math.random() * 10000)
       }
       

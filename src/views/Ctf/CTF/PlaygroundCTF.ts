@@ -10,6 +10,7 @@ import { Tween, Easing } from '@tweenjs/tween.js'
 import { TargetCTF } from './TargetCTF'
 import { imgsDir } from '../consts'
 
+// ctf整体场景类，继承自Scene基类
 export class PlaygroundCTF extends Playground {
   // 底部雷达扫描
   scan: Mesh

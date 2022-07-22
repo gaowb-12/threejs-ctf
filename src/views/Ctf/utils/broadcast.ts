@@ -1,5 +1,6 @@
 import { h } from './dom'
 
+// 展示结束攻击之后的信息
 export function broadcast(title: string, content: string, duraing = 2000) {
   const el = h('div')
   el.className = 'broadcast in'

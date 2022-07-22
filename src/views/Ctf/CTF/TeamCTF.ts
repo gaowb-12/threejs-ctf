@@ -87,39 +87,51 @@ export class TeamCTF extends BaseObject {
   // 进行攻击
   private startAttack() {
     const playground = this.playground as PlaygroundCTF
+    // 攻击时对发起攻击的队伍进行特写
     playground.focus(this)
+    // 旋转队伍使其在世界空间中面朝靶标。
     this.lookAt((this.target as TargetCTF).position)
     const toRotate = { x: this.rotation.x, y: this.rotation.y, z: this.rotation.z }
     this.rotation.set(0, 0, 0)
+    // 位置角度发生变化时进行动画
     new Tween(this.position)
       .to({ y: 200 }, 400)
       .easing(Easing.Quartic.InOut)
-      .onComplete(this.attack.bind(this))
+      .onComplete(this.attack.bind(this)) //正式发起攻击
       .start()
+      // 旋转动画
     new Tween(this.rotation)
       .to(toRotate, 300)
       .start()
   }
+  // 正式进行攻击
   private attack() {
     const { target, success } = this
     const playground = this.playground
+    // 连续攻击（静态情况下，按次数递归执行）
     loop({
       interval: 150,
-      times: 10,
+      times: 10, //射击次数
       onStart: () => {
+        // 开始攻击，延时是为了等到子弹射击几次之后才开始显示靶标特效
         setTimeout(() => { (target as TargetCTF).beAttack(this, success) }, 900)
       },
       callback: () => {
+        // 队伍射击时，面朝靶标
         this.lookAt((target as TargetCTF).position)
+        // 执行射击（每次射击都会生成子弹发射）
         Bullet.shoot(playground, this, (target as TargetCTF))
       },
       onEnd: () => {
+        // 结束射击
         setTimeout(this.endAttack.bind(this), 1100)
       }
     })
   }
 
+  // 结束攻击
   private endAttack() {
+    // 当前队伍连续攻破多少个靶标
     if (this.winRecords.length >= 3) broadcast(
       'KILL SPREE!!',
       `队伍 <span style="color:#fff">${this.name}</span> 连续攻破<span style="color:#fff">${this.winRecords.length}</span>题!`
@@ -127,6 +139,7 @@ export class TeamCTF extends BaseObject {
     this.target = null
     this.success = false
 
+    // 队伍回归原位置的动画
     new Tween(this.rotation)
       .to({ x: 0, y: this.initialRotationY, z: 0 }, 400)
       .start()
@@ -147,11 +160,15 @@ export class TeamCTF extends BaseObject {
     this.target = target
     // 保存攻击的结果
     this.success = success
+    // this.playground是继承自BaseObject的属性，获取顶层Scene对象
+    // 因为playgroundCTF类是继承自Scene基类，并且teamCTF和targetCTF都是添加到playgroundCTF类中的，所以这里的this.playground指向playgroundCTF类的实例
     if (this.playground.isPaused) {
+      // ctf场景是否处于暂定状态
       this.target.beAttack(this, success)
       this.target = null
       this.success = false
     } else {
+      // 开始攻击
       this.startAttack()
     }
   }

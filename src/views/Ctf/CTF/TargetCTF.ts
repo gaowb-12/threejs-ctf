@@ -33,9 +33,11 @@ export class TargetCTF extends Building{
     this.add(outline)
   }
 
+  // 当前靶标被攻击
   beAttack(team: TeamCTF, success: boolean) {
     // 记录数据
     if (success) {
+      // 攻击成功的需要进行标签提示
       this.panel.addItem(team.name)
       if (!this.winTeams.includes(team)) this.winTeams.push(team)
     }
