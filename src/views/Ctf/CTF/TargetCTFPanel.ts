@@ -8,6 +8,7 @@ export class TargetCTFPanel extends Panel {
   private _type: 1 | 2 | 3 = 1
   constructor(target: TargetCTF, offset?: PanelOffset) {
     super(target, offset)
+    // 生成靶标提示标签
     this.content.innerHTML = ''
     this.content.classList.add('panel-target')
     this.titleEl = h('div') as HTMLDivElement
@@ -26,6 +27,7 @@ export class TargetCTFPanel extends Panel {
       target.box.visible = false
     });
   }
+  // 靶标被攻击之后的状态提示
   addItem(name: string) {
     const count = this.listEl.childElementCount
     if (count === 3) return

@@ -35,6 +35,7 @@ export default class CTF extends Vue {
         const teamModel = assets.aerobat
         return new TeamCTF(teamModel as any, item.name)
       })
+      console.log(playgroundCTF)
       // 向场景添加队伍和靶标
       playgroundCTF.setTeams(teams)
       playgroundCTF.setTargets(targets)

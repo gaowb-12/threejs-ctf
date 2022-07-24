@@ -69,19 +69,25 @@ export class Building extends BaseObject {
     
   }
 
+  // 爆炸特效
   explode() {
     const playground = this.playground
     if (!playground.isPaused) {
 
+      // 获取一次爆炸效果（获取实例）
       const fire = Fire.getOne()
+      // 定位爆炸发生的位置
       fire.position.copy(this.position)
       fire.position.y += this._size / 2
+      // 爆炸的范围
       const scale = this._size * this.scale.x / Fire.size * 1.8
       const scaleY = this._size * this.scale.y / Fire.size * 2
       fire.scale.set(scale, scaleY, scale)
       playground.add(fire)
+      // 爆炸特效开始
       fire.start()
   
+      // 在产生一次爆炸，增强效果
       setTimeout(() => {
         const fire1 = Fire.getOne()
         fire1.position.copy(fire.position)

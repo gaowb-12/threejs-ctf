@@ -39,6 +39,7 @@ export class TeamCTF extends BaseObject {
   constructor(mesh: Mesh, name: string) {
     super()
     this.name = name
+    // 每个队伍都对应生成一个面板标签（HTML标签），用于展示队伍信息，同时保存当前队伍的各种信息
     this.panel = new TeamCTFPanel(this, { y: 55, x: -40 })
 
     // 设置队伍（飞机模型）的材质

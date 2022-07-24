@@ -44,6 +44,7 @@ export class Playground extends Scene{
 
   init () {
     const { renderer, camera, el, controls, composer, stats } = this
+    // 添加渲染器（画布）
     el.appendChild(renderer.domElement)
 
     this.renderer.shadowMap.enabled = true
@@ -85,7 +86,7 @@ export class Playground extends Scene{
     this.controls.update()
     // 靶标动画
     TweenUpdate()
-    // 靶标提示标签动画
+    // 队伍和靶标提示标签动画
     Panel.update()
     // 通过后期处理通道合成
     this.composer.render()

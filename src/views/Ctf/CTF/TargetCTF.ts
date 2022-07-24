@@ -19,9 +19,12 @@ export class TargetCTF extends Building{
     super(geometry)
     this.name = name
     this.score = score
+    // 每个靶标都对应生成一个面板标签（HTML标签），用于展示靶标信息，同时保存当前靶标的各种信息
     this.panel = new TargetCTFPanel(this, { y: 200 })
 
+    // 带圆角的长方形作为基座
     const shape = roundedRect(new Shape(), 0, 0, 220, 220, 20)
+    // 根据生成的长方形的点绘制长方形基座
     const geomertyPoints = new BufferGeometry().setFromPoints(shape.getPoints())
     const outline = new Line(geomertyPoints, new LineBasicMaterial({
       color: outlineColors[random(0, outlineColors.length - 1)],
@@ -45,6 +48,7 @@ export class TargetCTF extends Building{
     setTimeout(() => {
       // 执行爆炸、变色、显示面板
       this.explode()
+      // 攻击成功与否的状态（2蓝色，表示成功；3红色，表示失败；1是常规）
       this.status = success ? 2 : 3
       this.panel.type = this.status
 
