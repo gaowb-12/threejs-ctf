@@ -13,14 +13,14 @@ export default class CTF extends Vue {
         this.init();
     }
     async init() {
-      // 加载场景所需资源
+      // 1.加载场景所需资源
       const assets = await CTFAssetsLoader.load()
       // 加载 队伍 和 靶标 数据
       const [targetData, teamData] = await Promise.all([
         axios.get('/json/targets.json'),
         axios.get('/json/teams.json')
       ])
-      // 初始化场景
+      // 2.初始化场景
       const playgroundCTF = new PlaygroundCTF((document.querySelector('#ctf') as HTMLElement), assets)
       // 初始化靶标
       const targets = targetData.data.map((item:any) => {
@@ -35,7 +35,6 @@ export default class CTF extends Vue {
         const teamModel = assets.aerobat
         return new TeamCTF(teamModel as any, item.name)
       })
-      console.log(playgroundCTF)
       // 向场景添加队伍和靶标
       playgroundCTF.setTeams(teams)
       playgroundCTF.setTargets(targets)
