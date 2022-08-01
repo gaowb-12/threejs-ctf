@@ -11,6 +11,9 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
+    "noImplicitAny": false, // 不允许隐式的any类型
+    "noImplicitThis": false, // 不允许this有隐式的any类型
+    "noUnusedLocals": false, // 不允许定义未使用的声明
     "sourceMap": true,
     "baseUrl": ".",
     "types": [

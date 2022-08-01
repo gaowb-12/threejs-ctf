@@ -14,7 +14,7 @@ export interface AWDAssets {
 
 export class AWDAssetsLoader {
   static async load(): Promise<AWDAssets> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const assets: AWDAssets = {
         buildings: []
       }

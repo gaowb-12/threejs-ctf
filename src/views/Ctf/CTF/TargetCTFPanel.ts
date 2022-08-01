@@ -20,10 +20,10 @@ export class TargetCTFPanel extends Panel {
     this.content.appendChild(this.titleEl);
     this.content.appendChild(this.listEl);
     
-    (this.el as HTMLDivElement).addEventListener('mouseenter', e => {
+    (this.el as HTMLDivElement).addEventListener('mouseenter', () => {
       target.box.visible = true;
     });
-    (this.el as HTMLDivElement).addEventListener('mouseleave', e => {
+    (this.el as HTMLDivElement).addEventListener('mouseleave', () => {
       target.box.visible = false
     });
   }

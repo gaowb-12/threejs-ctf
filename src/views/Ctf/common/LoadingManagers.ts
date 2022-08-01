@@ -9,7 +9,7 @@ loadUI.id = 'load-ui'
 
 const AssetsLoadingManager = new LoadingManager()
 
-AssetsLoadingManager.onStart = (url, loaded, total) => {
+AssetsLoadingManager.onStart = () => {
   document.body.appendChild(loadUI)
   loadText.innerHTML = `<div>LOADING... 0%</div>`
 }

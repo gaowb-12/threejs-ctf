@@ -13,7 +13,7 @@ export interface CTFAssets {
 
 export class CTFAssetsLoader {
   static async load(): Promise<CTFAssets> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const assets: CTFAssets = {
         buildings: []
       }
