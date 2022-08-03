@@ -24,7 +24,7 @@ export class MapGrid extends Array<{ x: number, y: number, value: number, used: 
     const array = [] //保存r通道的数值
     const len = pixels.length
     for (let i = 0; i < len; i += 4) {
-      array.push(pixels[i])
+      array.push(pixels[i] as never)
     }
     // r通道的最大值（最大255，在画布中心）
     const max = Math.max(...array)
