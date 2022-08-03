@@ -1,6 +1,6 @@
 language: node_js # 构建所需的语言环境
 node_js:
-  - "v14.18.0"  # 对应的版本
+  - "14"  # 对应的版本
 branches:
   only:
   - master    # 构建的分支
@@ -18,7 +18,7 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN # github 上的token环境变量
   keep_history: true
-  local-dir: ./_book/ ## 根据情况自定义到静态文件输出目录
+  local-dir: ./dist/ ## 根据情况自定义到静态文件输出目录
   target-branch: gh-pages
   verbose: true
   on:
