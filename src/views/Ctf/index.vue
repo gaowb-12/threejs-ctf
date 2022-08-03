@@ -17,8 +17,8 @@ export default class CTF extends Vue {
       const assets = await CTFAssetsLoader.load()
       // 加载 队伍 和 靶标 数据
       const [targetData, teamData] = await Promise.all([
-        axios.get('/json/targets.json'),
-        axios.get('/json/teams.json')
+        axios.get('/threejs-ctf/json/targets.json'),
+        axios.get('/threejs-ctf/json/teams.json')
       ])
       // 2.初始化场景
       const playgroundCTF = new PlaygroundCTF((document.querySelector('#ctf') as HTMLElement), assets)
